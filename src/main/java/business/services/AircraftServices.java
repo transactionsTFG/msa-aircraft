@@ -1,7 +1,9 @@
 package business.services;
 
-import business.aircraft.AircraftDTO;
+import java.util.List;
+
+import business.dto.AircraftCapacityDTO;
 
 public interface AircraftServices {
-    AircraftDTO getAircraftById(long id);
+    boolean validateCapacity(List<AircraftCapacityDTO> listIdAircraft);
 }
