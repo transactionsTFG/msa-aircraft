@@ -3,8 +3,8 @@ package business.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import business.country.Aircraft;
-import business.country.AircraftDTO;
+import business.aircraft.Aircraft;
+import business.aircraft.AircraftDTO;
 
 @Mapper
 public interface AircraftMapper {

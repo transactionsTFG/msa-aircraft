@@ -3,7 +3,7 @@ package domainevent.command;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import business.country.AircraftDTO;
+import business.aircraft.AircraftDTO;
 import domainevent.command.handler.BaseHandler;
 import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;

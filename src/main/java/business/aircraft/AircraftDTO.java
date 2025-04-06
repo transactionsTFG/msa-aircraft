@@ -1,4 +1,4 @@
-package business.country;
+package business.aircraft;
 
 import lombok.Data;
 

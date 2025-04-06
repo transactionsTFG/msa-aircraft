@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
-import business.country.Aircraft;
-import business.country.AircraftDTO;
+import business.aircraft.Aircraft;
+import business.aircraft.AircraftDTO;
 import business.mapper.AircraftMapper;
 
 @Stateless
