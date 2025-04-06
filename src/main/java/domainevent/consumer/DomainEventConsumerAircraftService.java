@@ -20,11 +20,11 @@ import msa.commons.event.Event;
 
 
 @MessageDriven(mappedName = JMSQueueNames.AIRLINE_AIRCRAFT_QUEUE)
-public class DomainEventConsumerCountryService implements MessageListener{
+public class DomainEventConsumerAircraftService implements MessageListener{
     
     private Gson gson;
     private EventHandlerRegistry eventHandlerRegistry;
-    private static final Logger LOGGER = LogManager.getLogger(DomainEventConsumerCountryService.class);
+    private static final Logger LOGGER = LogManager.getLogger(DomainEventConsumerAircraftService.class);
 
     @Override
     @Transactional 
