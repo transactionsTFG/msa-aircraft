@@ -28,9 +28,9 @@ public class ValidateAircrafByEventOfCreateReservation extends BaseHandler {
         }).toList();
         boolean isValid = this.aircraftServices.validateCapacity(aircraftIds);
         if (isValid) 
-            this.jmsEventPublisher.publish(EventId.AIRCRAFT_VALIDATE_CAPACITY_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, v);
+            this.jmsEventPublisher.publish(EventId.AIRCRAFT_PROPAGATION_SAVE_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, v);
         else 
-            this.jmsEventPublisher.publish(EventId.AIRCRAFT_VALIDATE_CAPACITY_RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, v);
+            this.jmsEventPublisher.publish(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, v);
     }
     
 }
