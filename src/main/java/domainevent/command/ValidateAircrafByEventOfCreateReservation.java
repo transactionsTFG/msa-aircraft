@@ -19,7 +19,7 @@ public class ValidateAircrafByEventOfCreateReservation extends BaseHandler {
 
     @Override
     public void handleCommand(Object data) {
-        CreateReservationCommand c = (CreateReservationCommand) data;
+        CreateReservationCommand c = this.gson.fromJson(data.toString(), CreateReservationCommand.class);
         List<AircraftCapacityDTO> aircraftIds = c.getFlightInstanceInfo().stream().map(info -> {
             AircraftCapacityDTO a = new AircraftCapacityDTO();
             a.setIdAircraft(info.getIdAircraft());
