@@ -23,7 +23,7 @@ public class ValidateAircrafByEventOfCreateReservation extends BaseHandler {
         List<AircraftCapacityDTO> aircraftIds = c.getFlightInstanceInfo().stream().map(info -> {
             AircraftCapacityDTO a = new AircraftCapacityDTO();
             a.setIdAircraft(info.getIdAircraft());
-            a.setTotalSeatsOccupied(info.getNumberSeats());
+            a.setTotalSeatsOccupied(info.getTotalOccupiedSeats());
             return a;
         }).toList();
         boolean isValid = this.aircraftServices.validateCapacity(aircraftIds);
