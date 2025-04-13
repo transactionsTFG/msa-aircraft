@@ -7,19 +7,22 @@ import javax.ejb.Stateless;
 
 import business.dto.AircraftCapacityDTO;
 import domainevent.command.handler.BaseHandler;
-import domainevent.command.handler.EventHandler;
+import domainevent.command.handler.CommandPublisher;
+import msa.commons.event.Event;
+import msa.commons.event.EventData;
 import msa.commons.event.EventId;
 import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventCreateReservationftQualifier;
 import msa.commons.microservices.reservationairline.commandevent.CreateReservationCommand;
 
 @Stateless
 @ValidateCapacityAircraEventCreateReservationftQualifier
-@Local(EventHandler.class)
+@Local(CommandPublisher.class)
 public class ValidateAircrafByEventOfCreateReservation extends BaseHandler {
 
     @Override
-    public void handleCommand(String json) {
-        CreateReservationCommand c = this.gson.fromJson(json, CreateReservationCommand.class);
+    public void commandPublisher(String json) {
+        EventData eventData = this.gson.fromJson(json, EventData.class);
+        CreateReservationCommand c = (CreateReservationCommand) eventData.getData();
         List<AircraftCapacityDTO> aircraftIds = c.getFlightInstanceInfo().stream().map(info -> {
             AircraftCapacityDTO a = new AircraftCapacityDTO();
             a.setIdAircraft(info.getIdAircraft());
@@ -28,9 +31,9 @@ public class ValidateAircrafByEventOfCreateReservation extends BaseHandler {
         }).toList();
         boolean isValid = this.aircraftServices.validateCapacity(aircraftIds);
         if (isValid) 
-            this.jmsEventPublisher.publish(EventId.AIRCRAFT_PROPAGATION_SAVE_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, c);
+            this.jmsEventPublisher.publish(EventId.AIRCRAFT_PROPAGATION_SAVE_RESERVATION_AIRLINE_CREATE_RESERVATION_COMMIT_SAGA, eventData);
         else 
-            this.jmsEventPublisher.publish(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, c);
+            this.jmsEventPublisher.publish(EventId.RESERVATION_AIRLINE_CREATE_RESERVATION_ROLLBACK_SAGA, eventData);
     }
     
 }

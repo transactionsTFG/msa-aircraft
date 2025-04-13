@@ -13,18 +13,18 @@ import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import domainevent.command.handler.EventHandler;
-import domainevent.registry.EventHandlerRegistry;
+import domainevent.command.handler.CommandPublisher;
+import domainevent.registry.CommandRegistry;
 import msa.commons.consts.JMSQueueNames;
 import msa.commons.event.Event;
 
 
 @MessageDriven(mappedName = JMSQueueNames.AIRLINE_AIRCRAFT_QUEUE)
-public class DomainEventConsumerAircraftService implements MessageListener{
+public class CommandConsumerAircraftService implements MessageListener{
     
     private Gson gson;
-    private EventHandlerRegistry eventHandlerRegistry;
-    private static final Logger LOGGER = LogManager.getLogger(DomainEventConsumerAircraftService.class);
+    private CommandRegistry eventHandlerRegistry;
+    private static final Logger LOGGER = LogManager.getLogger(CommandConsumerAircraftService.class);
 
     @Override
     @Transactional 
@@ -33,9 +33,9 @@ public class DomainEventConsumerAircraftService implements MessageListener{
             if(msg instanceof TextMessage m) {
                 Event event = this.gson.fromJson(m.getText(), Event.class);
                 LOGGER.info("Recibido en Cola {}, Evento Id: {}, EventResponse: {}", JMSQueueNames.AIRLINE_AIRCRAFT_QUEUE, event.getEventId(), event.getData());
-                EventHandler commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
+                CommandPublisher commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
                 if(commandHandler != null)
-                    commandHandler.handleCommand(this.gson.toJson(event.getData()));
+                    commandHandler.commandPublisher(this.gson.toJson(event.getData()));
             }
         } catch (Exception e) {
             LOGGER.error("Error al recibir el mensaje: {}", e.getMessage());
@@ -46,5 +46,5 @@ public class DomainEventConsumerAircraftService implements MessageListener{
     @Inject
     public void setGson(Gson gson) { this.gson = gson; }
     @EJB
-    public void setCommandHandlerRegistry(EventHandlerRegistry commandHandlerRegistry) { this.eventHandlerRegistry = commandHandlerRegistry; }
+    public void setCommandHandlerRegistry(CommandRegistry commandHandlerRegistry) { this.eventHandlerRegistry = commandHandlerRegistry; }
 }
