@@ -32,10 +32,10 @@ public class CommandConsumerAircraftService implements MessageListener{
         try {
             if(msg instanceof TextMessage m) {
                 Event event = this.gson.fromJson(m.getText(), Event.class);
-                LOGGER.info("Recibido en Cola {}, Evento Id: {}, EventResponse: {}", JMSQueueNames.AIRLINE_AIRCRAFT_QUEUE, event.getEventId(), event.getData());
+                LOGGER.info("Recibido en Cola {}, Evento Id: {}, EventResponse: {}", JMSQueueNames.AIRLINE_AIRCRAFT_QUEUE, event.getEventId(), event.getValue());
                 CommandPublisher commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
                 if(commandHandler != null)
-                    commandHandler.commandPublisher(this.gson.toJson(event.getData()));
+                    commandHandler.commandPublisher(this.gson.toJson(event.getValue()));
             }
         } catch (Exception e) {
             LOGGER.error("Error al recibir el mensaje: {}", e.getMessage());
