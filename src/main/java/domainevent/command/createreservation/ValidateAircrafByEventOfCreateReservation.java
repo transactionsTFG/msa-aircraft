@@ -1,4 +1,4 @@
-package domainevent.command;
+package domainevent.command.createreservation;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import business.dto.AircraftCapacityDTO;
 import domainevent.command.handler.BaseHandler;
 import domainevent.command.handler.CommandPublisher;
-import msa.commons.event.Event;
 import msa.commons.event.EventData;
 import msa.commons.event.EventId;
 import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventCreateReservationftQualifier;
