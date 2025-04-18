@@ -8,7 +8,6 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
-import org.apache.logging.log4j.core.tools.picocli.CommandLine.Command;
 
 import domainevent.command.handler.CommandPublisher;
 
