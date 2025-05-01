@@ -8,12 +8,12 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 
-
+import business.qualifier.createreservation.ValidateCapacityAircraEventCreateReservationftQualifier;
+import business.qualifier.modify.ValidateCapacityAircrafEventModifyReservationftQualifier;
 import domainevent.command.handler.CommandPublisher;
 
 import msa.commons.event.EventId;
-import msa.commons.microservices.aircraft.modifyreservation.qualifier.ValidateCapacityAircrafEventModifyReservationftQualifier;
-import msa.commons.microservices.aircraft.qualifier.ValidateCapacityAircraEventCreateReservationftQualifier;
+
 
 @Singleton
 @Startup
