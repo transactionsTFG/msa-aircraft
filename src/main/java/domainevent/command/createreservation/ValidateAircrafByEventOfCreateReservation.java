@@ -9,9 +9,9 @@ import business.dto.AircraftCapacityDTO;
 import business.qualifier.createreservation.ValidateCapacityAircraEventCreateReservationftQualifier;
 import domainevent.command.handler.BaseHandler;
 import domainevent.command.handler.CommandPublisher;
+import msa.commons.commands.createreservation.CreateReservationCommand;
 import msa.commons.event.EventData;
 import msa.commons.event.EventId;
-import msa.commons.microservices.reservationairline.commandevent.CreateReservationCommand;
 
 @Stateless
 @ValidateCapacityAircraEventCreateReservationftQualifier
